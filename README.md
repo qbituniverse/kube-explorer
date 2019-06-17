@@ -213,7 +213,7 @@ docker-compose -f Compose-kube-explorer.yaml -f Compose-values.yaml up -d
 ### Kubernetes with default configuration
 
 ```
-TBC
+TBC 
 ```
 
 ### Kubernetes with custom configuration

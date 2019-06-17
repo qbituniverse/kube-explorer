@@ -7,6 +7,7 @@ steps:
     containerRegistry: DockerHub
     repository: 'qbituniverse/kube-explorer'
     Dockerfile: 'automation/docker/Dockerfile-kube-explorer'
+    buildContext: ''
     tags: |
      $(Build.BuildId)
      latest

@@ -1,0 +1,92 @@
+﻿@using qu.kubeexplorer.webapp.Models
+@model UserLogin
+@inject Configuration Configuration
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - @Configuration.Application.Name</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container body-content">
+        @using (Html.BeginForm())
+        {
+            <div class="row text-center">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6 text-center">
+                    <div class="grid-loader panel-body text-center row" hidden>
+                        <div class="progress" hidden>
+                            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+                            </div>
+                        </div>
+                        <div class="text">
+                            <span class="well">
+                                <span></span>
+                                <img src="~/images/kubeanimation.gif" alt="Loading...">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="grid-container row login text-center" hidden>
+                        <p class="logo">
+                            <span>&nbsp;</span>
+                            <img src="~/images/kubeexplorer.png" alt="@Configuration.Application.Name">
+                            <span class="name">@Configuration.Application.Name</span>
+                        </p>
+                        <p>
+                            <span>Username</span>
+                            @Html.TextBoxFor(login => login.UserName)
+                        </p>
+                        <p>
+                            <span>Password</span>
+                            @Html.PasswordFor(login => login.Password)
+                        </p>
+                        <p>
+                            <span></span>
+                            <button class="loginbtn btn btn-default btn-success btn-block">
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                                Login
+                            </button>
+                        </p>
+                    </div>
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="grid-error text-center">
+                            <p class="well well-lg">
+                                @ViewBag.ErrorMessage
+                            </p>
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        }
+        <hr />
+        <footer>
+            <p>&copy; 2018-@DateTime.Now.Year - @Configuration.Application.Name</p>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/login.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            loadLogin('@ViewBag.ErrorMessage');
+        });
+    </script>
+
+</body>
+</html>

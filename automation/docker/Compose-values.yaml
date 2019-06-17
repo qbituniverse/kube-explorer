@@ -1,0 +1,17 @@
+version: '2.4'
+services:
+  api:
+    ports:
+    - "80:80"
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Production
+    - Configuration__Application__Name=name
+    - Configuration__Application__ShowException=false
+    - Configuration__Application__CacheDataSets=false
+    - Configuration__Application__CacheDurationMinutes=60
+    - Configuration__Application__Username=username
+    - Configuration__Application__Password=password
+    - Configuration__Application__AutoLogin=false
+    - Configuration__Azure__TenantId=tenantid
+    - Configuration__Azure__ClientId=clienid
+    - Configuration__Azure__ClientSecret=clientsecret

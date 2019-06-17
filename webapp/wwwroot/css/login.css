@@ -1,0 +1,44 @@
+﻿.login p > button {
+    display: inline-block;
+    width: 250px;
+}
+
+.login p > span {
+    width: 75px;
+    margin-bottom: 0px;
+    display: inline-block;
+    padding: 8px;
+    color: #9d9d9d;
+    font-size: 0.9em;
+    line-height: 1;
+    margin-right: 5px;
+}
+
+.login p > button > span.glyphicon  {
+    margin-right: 10px;
+}
+
+.login p > input {
+    width: 250px;
+    margin-bottom: 0px;
+    display: inline-block;
+    padding: 8px;
+    color: #9d9d9d;
+    font-size: 0.9em;
+    line-height: 1;
+}
+
+.login p.logo {
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+
+.login p.logo img {
+    margin-right: 5px;
+}
+
+.login p.logo span.name {
+    font-size: 1.5em;
+    width: 200px;
+    text-align: left;
+}

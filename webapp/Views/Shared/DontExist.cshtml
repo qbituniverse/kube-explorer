@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "404 - Page Don't Exist";
+}
+
+<h1 class="text-danger">404 - Page Don't Exist.</h1>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h2>
+    <strong><a asp-area="" asp-controller="Home" asp-action="Index">Take me back to the site.</a></strong>
+</h2>

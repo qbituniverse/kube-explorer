@@ -1,0 +1,164 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using qu.kubeexplorer.webapp.Helpers
+@using qu.kubeexplorer.webapp.Models
+@inject IAuthorizationService AuthorizationService
+@inject Configuration Configuration
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - @Configuration.Application.Name</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @RenderSection("Styles", false);
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <img src="~/images/kubeexplorer.png" alt="@Configuration.Application.Name" />
+                    <span>@Configuration.Application.Name</span>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if ((await AuthorizationService.AuthorizeAsync(User, Constants.Policies.Acr)).Succeeded)
+                    {
+                        <li>
+                            <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("Index", "Images")';">
+                                <img src="~/images/docker.png" alt="Docker" />Images
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("Index", "Charts")';">
+                                <img src="~/images/helm.png" alt="Helm" />Charts
+                            </button>
+                        </li>
+                    }
+                    @if ((await AuthorizationService.AuthorizeAsync(User, Constants.Policies.Aks)).Succeeded)
+                    {
+                        <li>
+                            <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("Index", "K8S")';">
+                                <img src="~/images/k8s.png" alt="K8s" />K8s
+                            </button>
+                        </li>
+                    }
+                </ul>
+                <p class="nav navbar-text navbar-right userpanel">
+                    Hello, <b>@User.Identity.Name</b>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-admin">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        Admin
+                    </button>
+                </p>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <div class="grid-modals">
+            <div id="modal-admin" class="modal fade admin" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn btn-primary" onclick="clearCatalogMatrix();location.href = '@Url.Action("Index", "Home")';">
+                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                Refresh Data Sets
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Logout", "Login")'">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                Logout
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                <label>Connected ACR:</label>
+                                <span id="copy-name-acr">@User.FindFirstValue(Constants.Uri.AcrUri)</span>
+                                <button class="btn btn-light clipcopy" data-clipboard-target="#copy-name-acr">
+                                    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                                </button>
+                            </p>
+                            <p>
+                                <label>User Roles:</label>
+                                <span>@string.Join(", ", User.Claims.Where(c => c.Type.Equals(ClaimTypes.Role)).Select(c => c.Value))</span>
+                            </p>
+                            <p>
+                                <label>Show Exception:</label>
+                                <span>@Configuration.Application.ShowException</span>
+                            </p>
+                            <p>
+                                <label>Cache Data Sets:</label>
+                                <span>@Configuration.Application.CacheDataSets</span>
+                            </p>
+                            <p>
+                                <label>Cache Duration:</label>
+                                <span>@Configuration.Application.CacheDurationMinutes minutes</span>
+                            </p>
+                            <p>
+                                <label>Azure Tenant Id:</label>
+                                <span>@Configuration.Azure.TenantId</span>
+                            </p>
+                            <p>
+                                <label>Azure Client Id:</label>
+                                <span>@Configuration.Azure.ClientId</span>
+                            </p>
+                        </div>
+                        <div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; 2018-@DateTime.Now.Year - @Configuration.Application.Name</p>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/clipboard/clipboard.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function() {
+            @{
+                var policies = "";
+                if ((await AuthorizationService.AuthorizeAsync(User, Constants.Policies.Acr)).Succeeded)
+                {
+                    policies = Constants.Policies.Acr;
+                }
+                if ((await AuthorizationService.AuthorizeAsync(User, Constants.Policies.Aks)).Succeeded)
+                {
+                    policies += $",{Constants.Policies.Aks}";
+                }
+                if ((await AuthorizationService.AuthorizeAsync(User, Constants.Policies.DevOps)).Succeeded)
+                {
+                    policies += $",{Constants.Policies.DevOps}";
+                }
+            }
+            loadCommon(
+                '@Configuration.Azure.TenantId',
+                '@policies',
+                '@string.Join(",", User.FindAll(ClaimTypes.Role).Select(r => r.Value))',
+                '@Configuration.Application.CacheDataSets',
+                @Configuration.Application.CacheDurationMinutes);
+        });
+    </script>
+
+@RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Charts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/accordions.css" asp-append-version="true" />
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="grid-loader panel-body text-center row" hidden>
+            <div class="progress" hidden>
+                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+                </div>
+            </div>
+            <div class="text">
+                <span class="well">
+                    <span></span>
+                    <img src="~/images/kubeanimation.gif" alt="Loading...">
+                </span>
+            </div>
+        </div>
+        <div class="grid-container row" hidden>
+            <div tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg w-98pc">
+                    <div class="modal-content">
+                        <div id="custom-search-input">
+                            <div class="input-group col-md-12">
+                                <input id="search" type="text" class="form-control input-lg search" placeholder="Search Charts" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg search" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                    <span class="repocounter well well-sm"></span>
+                                </span>
+                            </div>
+                            <div class="just-padding">
+                                <div class="list-group list-group-root well level0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-error text-center" hidden>
+            <p class="well well-lg error">
+                Error communicating with the ACR!
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="grid-modals"></div>
+
+@section Scripts{
+    <script src="~/js/charts.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            loadCharts();
+        });
+    </script>
+}

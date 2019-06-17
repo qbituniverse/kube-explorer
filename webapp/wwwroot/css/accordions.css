@@ -1,0 +1,243 @@
+﻿#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 0;
+    background-color: #fff;
+}
+
+#custom-search-input input.search {
+    border: 0;
+    box-shadow: none;
+    width: 50%;
+}
+
+#custom-search-input span.input-group-btn {
+    display: inline-block !important;
+}
+
+#custom-search-input span.input-group-btn .repocounter {
+    width: 190px;
+    display: inline-block;
+    padding: 7px;
+    font-size: 13px;
+    margin-bottom: 0px;
+    margin-left: 17px;
+    margin-top: 2px;
+    vertical-align: middle;
+    color: #9d9d9d;
+}
+
+#custom-search-input button.search {
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button.search:hover {
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .list-group-item button {
+    margin: 2px 0 0 0;
+    box-shadow: none;
+    border: 0;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search {
+    font-size: 23px;
+}
+
+.just-padding {
+    padding: 15px;
+}
+
+.list-group.list-group-root {
+    padding: 0;
+    overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+    margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+    border-radius: 0;
+    border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+    border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+    padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+    padding-left: 45px;
+}
+
+.list-group-item .glyphicon {
+    margin-right: 13px;
+}
+
+.level0 {
+    border-bottom: 0;
+    border-radius: 0;
+}
+
+.level1, .level2 {
+    width: 50%;
+    display: inline-block;
+    border-top: 0px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+    border-left: 0px solid #ddd !important;
+    border-right: 1px solid #ddd !important;
+    margin-right: 5px;
+}
+
+.level2 {
+    padding-left: 40px;
+    margin-bottom: -1px !important;
+}
+
+.divlevel1, .divlevel2 {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+.divlevel1 button .glyphicon, 
+.divlevel2 button .glyphicon {
+    margin-right: 10px;
+}
+
+.divlevel1 > span, .divlevel2 > span {
+    width: 10%;
+    margin-bottom: 0px;
+    display: inline-block;
+    padding: 8px;
+    color: #9d9d9d;
+    font-size: 0.9em;
+    line-height: 1;
+    margin-right: 5px;
+}
+
+.divlevel1 > button, .divlevel2 > button {
+    margin-right: 5px;
+}
+
+.divlevel3 {
+    border-top: 0px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+    border-left: 0px solid #ddd !important;
+    border-right: 0px solid #ddd !important;
+    padding-top: 20px;
+}
+
+.divlevel3 > div > p > label,
+.divlevel3 > div > div > p > label {
+    width: 125px;
+}
+
+.divlevel3 > div.details-header {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.divlevel3 > div.details-header > h4 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.divlevel3 > div.well {
+    width: 97.4%;
+    padding-top: 20px;
+    margin-left: 15px;
+    border-radius: 0;
+}
+
+.divlevel1 > button.clipcopy > span.glyphicon,
+.divlevel2 > button.clipcopy > span.glyphicon {
+    margin: 0;
+}
+
+.divlevel3 p > button.clipcopy {
+    padding: 0 10px 0 8px !important;
+    margin: 0 0 0 5px !important;
+}
+
+.divlevel3 p > button.clipcopy > span.glyphicon {
+    margin: 0;
+}
+
+span.usage-k8s,
+span.usage-image-subs,
+span.usage-chart-subs,
+span.usage-image-clust,
+span.usage-chart-clust {
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 20px;
+    margin-right: 40px;
+    float: right;
+}
+
+span.usage-k8s {
+    background-image: url('/images/k8s.png');
+}
+
+span.usage-image-subs,
+span.usage-image-clust {
+    background-image: url('/images/docker.png');
+}
+
+span.usage-chart-subs,
+span.usage-chart-clust {
+    background-image: url('/images/helm.png');
+}
+
+span.usage-k8s-count,
+span.usage-image-subs-count,
+span.usage-chart-subs-count,
+span.usage-image-clust-count,
+span.usage-chart-clust-count {
+    display: inline-block;
+    margin-left: 25px;
+}
+
+p.usage-k8s-items span:first-child {
+    width: 300px;
+    display: inline-block;
+}
+
+p.usage-k8s-items span:last-child {
+    font-weight: bold;
+    display: inline-block;
+}
+
+div.usage-image-item,
+div.usage-chart-item {
+    background-color: #d0dbe4;
+}
+
+span.usage-image-item,
+span.usage-chart-item {
+    background-image: url('/images/docker.png');
+    background-size: 20px 20px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 25px;
+}
+
+span.usage-chart-item {
+    background-image: url('/images/helm.png');
+}

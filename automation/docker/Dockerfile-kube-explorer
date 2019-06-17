@@ -1,0 +1,24 @@
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS runtime
+WORKDIR /app
+EXPOSE 80
+
+FROM microsoft/dotnet:2.2-sdk AS build
+WORKDIR /src
+COPY ["webapp/webapp.csproj", "webapp/"]
+COPY ["nuget.azure/nuget.azure.csproj", "nuget.azure/"]
+COPY ["nuget.infrastructure/nuget.infrastructure.csproj", "nuget.infrastructure/"]
+COPY ["nuget.devops/nuget.devops.csproj", "nuget.devops/"]
+RUN dotnet restore "webapp/webapp.csproj"
+
+COPY . .
+WORKDIR "/src/webapp"
+RUN dotnet build "webapp.csproj" -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish "webapp.csproj" -c Release -o /app
+
+FROM runtime AS final
+WORKDIR /app
+COPY --from=publish /app .
+
+ENTRYPOINT ["dotnet", "qu.kubeexplorer.webapp.dll"]

@@ -1,0 +1,100 @@
+﻿.homedash {
+    margin-right: -7px;
+    margin-left: -7px;
+}
+
+.quicklinks {
+    text-align: center;
+}
+
+.quicklinks img {
+    margin-right: 5px;
+}
+
+.quicklinks span {
+    margin-top: 15px;
+    color: #9d9d9d;
+    display: block;
+}
+
+.images-loader .text,
+.charts-loader .text,
+.k8s-loader .text {
+    margin: 50px 0;
+}
+
+.images-loader .text span,
+.charts-loader .text span,
+.k8s-loader .text span {
+    color: #9d9d9d;
+}
+
+.images-loader .text img,
+.charts-loader .text img,
+.k8s-loader .text img {
+    margin-left: 50px;
+    width: 50px;
+    height: auto;
+}
+
+.panel-heading h3 {
+    color: #9d9d9d;
+    margin: 0;
+}
+
+.panel-heading h3 img {
+    
+}
+
+.panel-body {
+    padding-top: 0;
+}
+
+.images-body .well,
+.charts-body .well,
+.k8s-body .well {
+    color: #777;
+    border-color: #ccc;
+    border-radius: 0;
+}
+
+.images-body span.well,
+.charts-body span.well {
+    width: 45%;
+    display: inline-block;
+    margin: 20px 10px 10px 10px;
+}
+
+.k8s-body > p > span.well {
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+}
+
+.k8s-body > p > span.well > span.well {
+    width: 31%;
+    display: inline-block;
+    margin: 20px 5px 10px 5px;
+    background-color: #e8e8e8;
+}
+
+.images-panel .modal-content,
+.charts-panel .modal-content {
+    
+}
+
+.repo-links {
+    margin-top: 15px;
+}
+
+p.level0 {
+    background-color: #eee;
+}
+
+.repo-links button span {
+    margin-right: 10px;
+}
+
+.clipcopy {
+    padding: 1px 6px !important;
+}

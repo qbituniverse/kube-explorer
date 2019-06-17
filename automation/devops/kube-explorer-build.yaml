@@ -1,0 +1,12 @@
+pool:
+  name: Hosted Ubuntu 1604
+steps:
+- task: Docker@2
+  displayName: buildAndPush
+  inputs:
+    containerRegistry: DockerHub
+    repository: 'qbituniverse/kube-explorer'
+    Dockerfile: 'automation/docker/Dockerfile-kube-explorer'
+    tags: |
+     $(Build.BuildId)
+     latest

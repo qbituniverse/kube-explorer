@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapp", "webapp\webapp.csproj", "{8BFC8103-AC36-4292-B5BE-312241409B55}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nuget.azure", "nuget.azure\nuget.azure.csproj", "{F2DCA9A8-DB42-44A2-B3A5-ADBFC793C2D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nuget.infrastructure", "nuget.infrastructure\nuget.infrastructure.csproj", "{53EF15C8-6E1D-4BAA-BE79-14103E193EC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nuget.devops", "nuget.devops\nuget.devops.csproj", "{26C561B8-38BD-4AE2-9272-4ACCE3DE518A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automation", "automation", "{F2E59859-20FF-4E12-AB0F-7AE08CAFFC78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{E1D4E127-0601-4624-B416-71C85C5BCA1C}"
+	ProjectSection(SolutionItems) = preProject
+		automation\docker\Compose-kube-explorer.yaml = automation\docker\Compose-kube-explorer.yaml
+		automation\docker\Compose-values.yaml = automation\docker\Compose-values.yaml
+		automation\docker\Dockerfile-kube-explorer = automation\docker\Dockerfile-kube-explorer
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{37BC5D26-B8CB-4348-9EF3-780FEEE4B04C}"
+	ProjectSection(SolutionItems) = preProject
+		documentation\README.md = documentation\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{0E91AD36-E75F-45A2-8395-CA67840F7274}"
+	ProjectSection(SolutionItems) = preProject
+		automation\devops\kube-explorer-build.yaml = automation\devops\kube-explorer-build.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BFC8103-AC36-4292-B5BE-312241409B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BFC8103-AC36-4292-B5BE-312241409B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BFC8103-AC36-4292-B5BE-312241409B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BFC8103-AC36-4292-B5BE-312241409B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2DCA9A8-DB42-44A2-B3A5-ADBFC793C2D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2DCA9A8-DB42-44A2-B3A5-ADBFC793C2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2DCA9A8-DB42-44A2-B3A5-ADBFC793C2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2DCA9A8-DB42-44A2-B3A5-ADBFC793C2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53EF15C8-6E1D-4BAA-BE79-14103E193EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53EF15C8-6E1D-4BAA-BE79-14103E193EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53EF15C8-6E1D-4BAA-BE79-14103E193EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53EF15C8-6E1D-4BAA-BE79-14103E193EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26C561B8-38BD-4AE2-9272-4ACCE3DE518A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C561B8-38BD-4AE2-9272-4ACCE3DE518A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26C561B8-38BD-4AE2-9272-4ACCE3DE518A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26C561B8-38BD-4AE2-9272-4ACCE3DE518A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E1D4E127-0601-4624-B416-71C85C5BCA1C} = {F2E59859-20FF-4E12-AB0F-7AE08CAFFC78}
+		{0E91AD36-E75F-45A2-8395-CA67840F7274} = {F2E59859-20FF-4E12-AB0F-7AE08CAFFC78}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {361DBA4E-5ACB-4784-90E8-41CAD4236375}
+	EndGlobalSection
+EndGlobal

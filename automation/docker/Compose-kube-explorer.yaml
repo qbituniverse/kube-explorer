@@ -1,0 +1,19 @@
+version: '2.4'
+services:
+  api:
+    image: qbituniverse/kube-explorer:latest
+    container_name: kube-explorer
+    ports:
+    - "80:80"
+    read_only: true
+    tmpfs:
+    - /tmp
+    restart: always
+    cpus: 1
+    mem_limit: 1g
+    cap_drop:
+    - ALL
+    cap_add:
+    - NET_BIND_SERVICE
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Production

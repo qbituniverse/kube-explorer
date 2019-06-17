@@ -1,0 +1,134 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using qu.kubeexplorer.webapp.Helpers
+@inject IAuthorizationService AuthorizationService
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+<div class="row homedash">
+    <div class="grid-loader panel-body text-center row" hidden>
+        <div class="progress" hidden>
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+            </div>
+        </div>
+        <div class="text">
+            <span class="well">
+                <span></span>
+                <img src="~/images/kubeanimation.gif" alt="Loading...">
+            </span>
+        </div>
+    </div>
+    <div class="grid-container row" hidden>
+        <div class="images-panel col-lg-6" hidden>
+            <div tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg w-98pc">
+                    <div class="modal-content">
+                        <div class="panel-heading top text-center">
+                            <h3>
+                                <img src="~/images/docker.png" alt="Docker">
+                            </h3>
+                        </div>
+                        <div class="images-loader panel-body text-center row" hidden>
+                            <div class="text">
+                                <span class="well">
+                                    Loading images
+                                    <img src="~/images/kubeanimation.gif" alt="Loading...">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="images-body panel-body" hidden>
+                            <p class="well well-sm text-center level0">
+                                Azure Container Registry (ACR)<br /><strong>@User.FindFirstValue(Constants.Uri.AcrUri)</strong>
+                            </p>
+                        </div>
+                        <div class="images-error panel-body text-center" hidden>
+                            <p class="well well-lg error">
+                                Error communicating with the ACR! Try again later...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="charts-panel col-lg-6" hidden>
+            <div tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg w-98pc">
+                    <div class="modal-content">
+                        <div class="panel-heading top text-center">
+                            <h3>
+                                <img src="~/images/helm.png" alt="Helm">
+                            </h3>
+                        </div>
+                        <div class="charts-loader panel-body text-center row" hidden>
+                            <div class="text">
+                                <span class="well">
+                                    Loading charts
+                                    <img src="~/images/kubeanimation.gif" alt="Loading...">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="charts-body panel-body" hidden>
+                            <p class="well well-sm text-center level0">
+                                Azure Container Registry (ACR)<br/><strong>@User.FindFirstValue(Constants.Uri.AcrUri)</strong>
+                            </p>
+                        </div>
+                        <div class="charts-error panel-body text-center" hidden>
+                            <p class="well well-lg error">
+                                Error communicating with the ACR! Try again later...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="k8s-panel col-lg-6" hidden>
+            <div tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg w-98pc">
+                    <div class="modal-content">
+                        <div class="panel-heading top text-center">
+                            <h3>
+                                <img src="~/images/k8s.png" alt="K8s">
+                            </h3>
+                        </div>
+                        <div class="k8s-loader panel-body text-center row" hidden>
+                            <div class="text">
+                                <span class="well">
+                                    Loading k8s clusters
+                                    <img src="~/images/kubeanimation.gif" alt="Loading...">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="k8s-body panel-body" hidden></div>
+                        <div class="k8s-error panel-body text-center" hidden>
+                            <p class="well well-lg error">
+                                Error communicating with the AKS! Try again later...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-error text-center" hidden>
+        <p class="well well-lg error">
+            Error communicating with the data store! Try again later...
+        </p>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/home.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            loadDashboard();
+        });
+    </script>
+}

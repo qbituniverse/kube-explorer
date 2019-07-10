@@ -1,15 +1,82 @@
-jobs:
-- job: Image
-  pool:
-    name: Hosted Ubuntu 1604
-  steps:
-  - task: Docker@2
-    displayName: buildAndPush
-    inputs:
-      containerRegistry: DockerHub
-      repository: 'qbituniverse/kube-explorer'
-      Dockerfile: 'automation/docker/Dockerfile-kube-explorer'
-      buildContext: ''
-      tags: |
-       $(Build.BuildId)
-       latest
+pool:
+  name: Hosted Ubuntu 1604
+
+trigger:
+- master
+
+pr: none
+
+variables:
+  acr.chartPath: kube-explorer-$(acr.chartVersion)
+  acr.chartVersion: $(acr.imageVersion).$(Build.BuildId)
+  acr.imagePath: qbituniverse/kube-explorer:$(acr.imageVersion).$(Build.BuildId)
+  acr.imageVersion: 0
+
+steps:
+- task: PowerShell@2
+  displayName: 'Read and Set acr.imageVersion from the Dockerfile'
+  inputs:
+    targetType: inline
+    script: |
+      $ImageVersion = 0
+      Get-Content automation/docker/Dockerfile-kube-explorer | Where-Object {$_.Replace("`t","").Replace(' ', '') -match "^LABELversion"} | ForEach-Object {
+          If ($_.Length -gt 0) {
+              If ($_.Split("=").Length -eq 2) {
+                  $ImageVersion = $_.Split("=")[1].Replace('"', '').Replace("`t","").Replace(' ', '').Replace('\', '')
+              }
+          }
+      }
+      Write-Output ("##vso[task.setvariable variable=acr.imageVersion;]$ImageVersion")
+   
+- task: PowerShell@2
+  displayName: 'Assign Build Number'
+  inputs:
+    targetType: inline
+    script: Write-Host "##vso[build.updatebuildnumber]$(acr.chartVersion)"
+
+- task: Docker@2
+  displayName: buildAndPush
+  inputs:
+    containerRegistry: DockerHub
+    repository: 'qbituniverse/kube-explorer'
+    Dockerfile: 'automation/docker/Dockerfile-kube-explorer'
+    buildContext: ''
+    tags: |
+      $(acr.imageVersion).$(Build.BuildId)
+      latest
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens in values.yaml'
+  inputs:
+    rootDirectory: 'automation/helm/kube-explorer'
+    targetFiles: 'values.yaml'
+    actionOnMissing: fail
+    keepToken: false
+
+- task: HelmDeploy@0
+  displayName: 'Init Helm'
+  inputs:
+    connectionType: None
+    command: init
+    upgradeTiller: false
+    arguments: '--client-only'
+
+- task: HelmDeploy@0
+  displayName: 'Package Helm Chart'
+  inputs:
+    command: package
+    chartPath: 'automation/helm/kube-explorer'
+    chartVersion: '$(acr.chartVersion)'
+    updateDependency: true
+    save: false
+
+- task: PowerShell@2
+  displayName: 'Index Helm Chart'
+  inputs:
+    targetType: inline
+    script: helm repo index --url https://qbituniverse.github.io/helm-charts/ .
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: helm'
+  inputs:
+    ArtifactName: helm

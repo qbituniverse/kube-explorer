@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.namespace }}-{{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.namespace }}-{{ .Values.name }}
+  replicas: 1
+  revisionHistoryLimit: 3
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.namespace }}-{{ .Values.name }}
+        chart: {{ .Values.acr.chartPath }}
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.secrets.dockerHub }}
+      restartPolicy: Always
+      containers:
+      - name: {{ .Values.namespace }}-{{ .Values.name }}
+        image: {{ .Values.acr.imagePath }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          capabilities:
+            drop: ["ALL"]
+            add: ["NET_BIND_SERVICE"]
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "256m"
+          limits:
+            memory: "128Mi"
+            cpu: "256m"
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: {{ .Values.configuration.environment | quote }}
+        - name: Configuration__Application__Name
+          value: {{ .Values.configuration.applicationName | quote }}
+        - name: Configuration__Application__ShowException
+          value: {{ .Values.configuration.applicationShowException | quote }}
+        - name: Configuration__Application__CacheDataSets
+          value: {{ .Values.configuration.applicationCacheDataSets | quote }}
+        - name: Configuration__Application__CacheDurationMinutes
+          value: {{ .Values.configuration.applicationCacheDurationMinutes | quote }}
+        - name: Configuration__Application__Username
+          value: {{ .Values.configuration.applicationUsername | quote }}
+        - name: Configuration__Application__Password
+          value: {{ .Values.configuration.applicationPassword | quote }}
+        - name: Configuration__Application__AutoLogin
+          value: {{ .Values.configuration.applicationAutoLogin | quote }}
+        - name: Configuration__Azure__TenantId
+          value: {{ .Values.configuration.azureTenantId | quote }}
+        - name: Configuration__Azure__ClientId
+          value: {{ .Values.configuration.azureClientId | quote }}
+        - name: Configuration__Azure__ClientSecret
+          value: {{ .Values.configuration.azureClientSecret | quote }}
+        ports:
+        - containerPort: 80

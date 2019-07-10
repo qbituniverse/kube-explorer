@@ -118,19 +118,39 @@ Once you have the above config items, **kube-explorer** can be setup in either R
 2. Run the *docker run* command as below
 
 ```
-docker run -dit -p 80:80 -m 1g --cpus="1" --restart=always --read-only --tmpfs /tmp --cap-drop=ALL --cap-add=NET_BIND_SERVICE --name kube-explorer `
+docker run `
+-dit `
+-p 80:80 `
+-m 1g `
+--cpus="1" `
+--restart=always `
+--read-only `
+--tmpfs /tmp `
+--cap-drop=ALL `
+--cap-add=NET_BIND_SERVICE `
+--name kube-explorer `
 -e ASPNETCORE_ENVIRONMENT=Production `
 qbituniverse/kube-explorer:latest
 ```
 
 ### Docker "run" with custom configuration
 
-1. Replace the *latest* tag with desired version for the image
+1. Replace the *latest* tag with desired version of the image
 2. Pass required parameters for the *-e* key=value pairs
 3. Run the *docker run* command as below
 
 ```
-docker run -dit -p 80:80 -m 1g --cpus="1" --restart=always --read-only --tmpfs /tmp --cap-drop=ALL --cap-add=NET_BIND_SERVICE --name kube-explorer `
+docker run `
+-dit `
+-p 80:80 `
+-m 1g `
+--cpus="1" `
+--restart=always `
+--read-only `
+--tmpfs /tmp `
+--cap-drop=ALL `
+--cap-add=NET_BIND_SERVICE `
+--name kube-explorer `
 -e ASPNETCORE_ENVIRONMENT=Production `
 -e Configuration__Application__Name=name `
 -e Configuration__Application__ShowException=false `
@@ -210,28 +230,53 @@ services:
 docker-compose -f Compose-kube-explorer.yaml -f Compose-values.yaml up -d
 ```
 
-### Kubernetes with default configuration
+### Helm Chart
 
+#### Default Installation
 ```
-TBC 
-```
-
-### Kubernetes with custom configuration
-
-```
-TBC
+helm install --name kube-explorer local/kube-explorer
 ```
 
-### Helm charts with default configuration
-
+#### Using Configuration
 ```
-TBC
+helm install --name kube-explorer `
+--set ASPNETCORE_ENVIRONMENT=Production `
+--set Configuration__Application__Name=name `
+--set Configuration__Application__ShowException=false `
+--set Configuration__Application__CacheDataSets=false `
+--set Configuration__Application__CacheDurationMinutes=60 `
+--set Configuration__Application__Username=username `
+--set Configuration__Application__Password=password `
+--set Configuration__Application__AutoLogin=false `
+--set Configuration__Azure__TenantId=tenantid `
+--set Configuration__Azure__ClientId=clienid `
+--set Configuration__Azure__ClientSecret=clientsecret `
+local/kube-explorer
 ```
 
-### Helm charts with custom configuration
-
+#### Using Values File
 ```
-TBC
+helm install --name kube-explorer -f values.yaml local/kube-explorer
+```
+
+#### values.yaml
+```
+name: ""
+namespace: ""
+secrets:
+  dockerHub: ""
+configuration:
+  environment: ""
+  applicationName: ""
+  applicationShowException: ""
+  applicationCacheDataSets: ""
+  applicationCacheDurationMinutes: ""
+  applicationUsername: ""
+  applicationPassword: ""
+  applicationAutoLogin: ""
+  azureTenantId: ""
+  azureClientId: ""
+  azureClientSecret: ""
 ```
 
 ## Links

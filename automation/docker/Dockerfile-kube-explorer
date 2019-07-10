@@ -1,4 +1,9 @@
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS runtime
+
+LABEL version="2.2" \
+      description="Image used to build kube-explorer" \
+      maintainer="administrator@qbituniverse.com"
+
 WORKDIR /app
 EXPOSE 80
 

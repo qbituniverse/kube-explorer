@@ -1,0 +1,7 @@
+version: 1.0
+apiVersion: v1
+name: kube-explorer
+description: Helm chart for kube-explorer
+maintainers:
+  - name: Administrator QbitUniverse
+    email: administrator@qbituniverse.com

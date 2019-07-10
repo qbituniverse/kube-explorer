@@ -1,0 +1,16 @@
+name: #{k8s.name}#
+namespace: #{k8s.namespace}#
+secrets:
+  dockerHub: #{secrets.dockerHub}#
+configuration:
+  environment: #{configuration.environment}#
+  applicationName: #{configuration.applicationName}#
+  applicationShowException: #{configuration.applicationShowException}#
+  applicationCacheDataSets: #{configuration.applicationCacheDataSets}#
+  applicationCacheDurationMinutes: #{configuration.applicationCacheDurationMinutes}#
+  applicationUsername: #{configuration.applicationUsername}#
+  applicationPassword: #{configuration.applicationPassword}#
+  applicationAutoLogin: #{configuration.applicationAutoLogin}#
+  azureTenantId: #{configuration.azureTenantId}#
+  azureClientId: #{configuration.azureClientId}#
+  azureClientSecret: #{configuration.azureClientSecret}#

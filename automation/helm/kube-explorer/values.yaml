@@ -1,0 +1,19 @@
+acr:
+  imagePath: #{acr.imagePath}#
+  chartPath: #{acr.chartPath}#
+name: ""
+namespace: ""
+secrets:
+  dockerHub: ""
+configuration:
+  environment: ""
+  applicationName: ""
+  applicationShowException: ""
+  applicationCacheDataSets: ""
+  applicationCacheDurationMinutes: ""
+  applicationUsername: ""
+  applicationPassword: ""
+  applicationAutoLogin: ""
+  azureTenantId: ""
+  azureClientId: ""
+  azureClientSecret: ""

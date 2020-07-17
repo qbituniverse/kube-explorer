@@ -1,5 +1,5 @@
 pool:
-  name: Hosted Ubuntu 1604
+  vmImage: 'ubuntu-latest'
 
 trigger:
 - master
@@ -19,7 +19,7 @@ steps:
     targetType: inline
     script: |
       $ImageVersion = 0
-      Get-Content automation/docker/Dockerfile-kube-explorer | Where-Object {$_.Replace("`t","").Replace(' ', '') -match "^LABELversion"} | ForEach-Object {
+      Get-Content .cicd/docker/Dockerfile-kube-explorer | Where-Object {$_.Replace("`t","").Replace(' ', '') -match "^LABELversion"} | ForEach-Object {
           If ($_.Length -gt 0) {
               If ($_.Split("=").Length -eq 2) {
                   $ImageVersion = $_.Split("=")[1].Replace('"', '').Replace("`t","").Replace(' ', '').Replace('\', '')
@@ -39,7 +39,7 @@ steps:
   inputs:
     containerRegistry: DockerHub
     repository: 'qbituniverse/kube-explorer'
-    Dockerfile: 'automation/docker/Dockerfile-kube-explorer'
+    Dockerfile: '.cicd/docker/Dockerfile-kube-explorer'
     buildContext: ''
     tags: |
       $(acr.imageVersion).$(Build.BuildId)
@@ -48,7 +48,7 @@ steps:
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in values.yaml'
   inputs:
-    rootDirectory: 'automation/helm/kube-explorer'
+    rootDirectory: '.cicd/helm/kube-explorer'
     targetFiles: 'values.yaml'
     actionOnMissing: fail
     keepToken: false
@@ -65,7 +65,7 @@ steps:
   displayName: 'Package Helm Chart'
   inputs:
     command: package
-    chartPath: 'automation/helm/kube-explorer'
+    chartPath: '.cicd/helm/kube-explorer'
     chartVersion: '$(acr.chartVersion)'
     updateDependency: true
     save: false

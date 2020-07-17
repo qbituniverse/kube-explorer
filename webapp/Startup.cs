@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -72,6 +73,8 @@ namespace qu.kubeexplorer.webapp
                 options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 options.SlidingExpiration = true;
             });
+
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

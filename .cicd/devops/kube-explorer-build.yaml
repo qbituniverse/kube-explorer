@@ -45,38 +45,38 @@ steps:
       $(acr.imageVersion).$(Build.BuildId)
       latest
 
-- task: qetza.replacetokens.replacetokens-task.replacetokens@3
-  displayName: 'Replace tokens in values.yaml'
-  inputs:
-    rootDirectory: '.cicd/helm/kube-explorer'
-    targetFiles: 'values.yaml'
-    actionOnMissing: fail
-    keepToken: false
+#- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+#  displayName: 'Replace tokens in values.yaml'
+#  inputs:
+#    rootDirectory: '.cicd/helm/kube-explorer'
+#    targetFiles: 'values.yaml'
+#    actionOnMissing: fail
+#    keepToken: false
 
-- task: HelmDeploy@0
-  displayName: 'Init Helm'
-  inputs:
-    connectionType: None
-    command: init
-    upgradeTiller: false
-    arguments: '--client-only'
+#- task: HelmDeploy@0
+#  displayName: 'Init Helm'
+#  inputs:
+#    connectionType: None
+#    command: init
+#    upgradeTiller: false
+#    arguments: '--client-only'
 
-- task: HelmDeploy@0
-  displayName: 'Package Helm Chart'
-  inputs:
-    command: package
-    chartPath: '.cicd/helm/kube-explorer'
-    chartVersion: '$(acr.chartVersion)'
-    updateDependency: true
-    save: false
+#- task: HelmDeploy@0
+#  displayName: 'Package Helm Chart'
+#  inputs:
+#    command: package
+#    chartPath: '.cicd/helm/kube-explorer'
+#    chartVersion: '$(acr.chartVersion)'
+#    updateDependency: true
+#    save: false
 
-- task: PowerShell@2
-  displayName: 'Index Helm Chart'
-  inputs:
-    targetType: inline
-    script: helm repo index --url https://qbituniverse.github.io/helm-charts/ .
+#- task: PowerShell@2
+#  displayName: 'Index Helm Chart'
+#  inputs:
+#    targetType: inline
+#    script: helm repo index --url https://qbituniverse.github.io/helm-charts/ .
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: helm'
-  inputs:
-    ArtifactName: helm
+#- task: PublishBuildArtifacts@1
+#  displayName: 'Publish Artifact: helm'
+#  inputs:
+#    ArtifactName: helm

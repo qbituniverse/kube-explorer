@@ -168,7 +168,7 @@ qbituniverse/kube-explorer:latest
 ### Docker compose with default configuration
 
 1. Replace the *latest* tag with desired version of the image inside of the Compose-kube-explorer.yaml file 
-2. Run the *docker-compose* command to create application with default configuration
+2. Run the *docker compose* command to create application with default configuration
 
 #### Compose-kube-explorer.yaml
 
@@ -195,14 +195,14 @@ services:
 ```
 
 ```
-docker-compose -f Compose-kube-explorer.yaml up -d
+docker compose -f Compose-kube-explorer.yaml up -d
 ```
 
 ### Docker compose with custom configuration
 
 1. Replace the *latest* tag with desired version of the image inside of the Compose-kube-explorer.yaml file 
 2. Modify the Compose-values.yaml with custom configuration
-3. Run the *docker-compose* command to create application with custom configuration
+3. Run the *docker compose* command to create application with custom configuration
 
 #### Compose-values.yaml
 
@@ -227,7 +227,7 @@ services:
 ```
 
 ```
-docker-compose -f Compose-kube-explorer.yaml -f Compose-values.yaml up -d
+docker compose -f Compose-kube-explorer.yaml -f Compose-values.yaml up -d
 ```
 
 ### Helm Chart
